@@ -28,4 +28,8 @@
       </if>
     </trim>
   </insert>
+    <select id="findRolePermissionByRoleId" resultMap="BaseResultMap">
+      select rid,pid from u_role_permission
+      where rid= #{roleId,jdbcType=BIGINT}
+    </select>
 </mapper>

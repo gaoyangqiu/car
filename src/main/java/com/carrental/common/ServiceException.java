@@ -1,6 +1,7 @@
 package com.carrental.common;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author: 72038667
@@ -19,20 +20,11 @@ public class ServiceException extends RuntimeException{
     private String code;
 
 
-    private ServiceException(String errorMsg) {
+    public ServiceException(String errorMsg) {
         super(errorMsg);
         this.code = errorMsg.substring(0, 5);
         this.errorMsg = errorMsg.substring(6);
     }
 
-    /**
-     * 抛出逻辑异常
-     *
-     * @param errorMsg
-     * @return
-     */
-    public static ServiceException le(String errorMsg) {
-        return new ServiceException(errorMsg);
-    }
 
 }

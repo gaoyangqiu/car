@@ -1,6 +1,9 @@
 package com.carrental.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author: 72038667
@@ -8,6 +11,8 @@ import lombok.Data;
  * @Version: 1.0
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RestResult {
     /**
      * 成功或者失败的code错误码
@@ -22,9 +27,8 @@ public class RestResult {
      */
     private Object errorMessage;
 
-    public RestResult(String code, Object data, Object errorMessage) {
-        this.code = code;
-        this.data = data;
-        this.errorMessage = errorMessage;
+
+    public static RestResult success(){
+        return new RestResult(ErrorMessage.SUCCESS.getCode().toString(),null,null);
     }
 }

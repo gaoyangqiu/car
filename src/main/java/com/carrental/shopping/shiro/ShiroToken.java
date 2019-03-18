@@ -11,4 +11,9 @@ import lombok.Data;
 public class ShiroToken {
     private String name;
     private String pswd;
+
+    public ShiroToken(String name, String pswd) {
+        this.name = name;
+        this.pswd = pswd;
+    }
 }

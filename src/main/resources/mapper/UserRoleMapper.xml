@@ -28,4 +28,10 @@
       </if>
     </trim>
   </insert>
+    <select id="findUserRoleByUserId" resultMap="BaseResultMap">
+      select uid,rid
+      from u_user_role
+      where
+       uid=#{userId,jdbcType=BIGINT}
+    </select>
 </mapper>
