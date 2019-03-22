@@ -48,7 +48,7 @@ public class shiroConfig {
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/images/**", "anon");
-        filterChainDefinitionMap.put("/login", "anon");
+/*        filterChainDefinitionMap.put("/login", "anon");*/
         filterChainDefinitionMap.put("/ajaxLogin", "anon");
         filterChainDefinitionMap.put("/adminLogin", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
@@ -60,7 +60,11 @@ public class shiroConfig {
         // <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/**", "authc");
+        Map map = new LinkedHashMap();
 
+        map.put("authc",new MyFormAuthenticationFilter());
+
+        shiroFilterFactoryBean.setFilters(map);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         log.info("Shiro拦截器工厂类注入成功");
         return shiroFilterFactoryBean;

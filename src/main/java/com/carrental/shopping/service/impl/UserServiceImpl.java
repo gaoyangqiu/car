@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
         List<RolePermission> rolePermissions=rolePermissionMapper.findRolePermissionByRoleId(roleId);
         if (!CollectionUtils.isEmpty(rolePermissions)) {
             for (RolePermission rolePermission : rolePermissions) {
-                permissionIds.add(rolePermission.getRid());
+                permissionIds.add(rolePermission.getPid());
             }
         }
         if (!CollectionUtils.isEmpty(permissionIds)){

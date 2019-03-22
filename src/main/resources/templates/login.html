@@ -8,8 +8,9 @@
 	<link rel="shortcut icon" href="favicon.ico">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-	
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/style.css">
 
@@ -22,7 +23,7 @@
 				<div class="col-md-4 col-md-push-8">
 
 					<!-- Start Sign In Form -->
-					<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+					<form class="fh5co-form animate-box" data-animate-effect="fadeInRight">
 						<h2>用户登录</h2>
 						<div class="form-group">
 							<label for="username" class="sr-only">用户名</label>
@@ -53,7 +54,7 @@
 	<!-- jQuery -->
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
 	<!-- Placeholder -->
 	<script src="js/jquery.placeholder.min.js"></script>
 	<!-- Waypoints -->
@@ -76,10 +77,10 @@
 							url: "/ajaxLogin",
 							success: function (result) {
 								if (result.code != "200") {
-									alert("11111111");
+									alert(result.errorMessage);
 								} else {
-									alert("登录成功");
 									location.href = "/index";
+									console.info(result.data);
 								}
 							}
 						}

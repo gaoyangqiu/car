@@ -9,6 +9,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.lang.annotation.Annotation;
@@ -26,7 +27,7 @@ public class ShoppingRestResultWrapper implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         RestResult result=new RestResult();
-        if (o instanceof RestResult){
+        if (o instanceof RestResult||o instanceof ModelAndView){
             return o;
         }else {
             result = new RestResult(ErrorMessage.SUCCESS.getCode().toString(), o, null);
