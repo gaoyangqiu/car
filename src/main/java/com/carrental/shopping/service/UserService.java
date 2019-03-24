@@ -3,6 +3,7 @@ package com.carrental.shopping.service;
 import com.carrental.entity.Permission;
 import com.carrental.entity.Role;
 import com.carrental.entity.User;
+import com.carrental.shopping.service.vo.UserInfoVo;
 
 import java.util.List;
 import java.util.Map;
@@ -34,4 +35,10 @@ public interface UserService {
      * @return
      */
     List<Permission> findPermissionByRole(Long roleId);
+
+    /**
+     * 修改用户信息
+     */
+    void updateUserInfo(User user);
+
 }

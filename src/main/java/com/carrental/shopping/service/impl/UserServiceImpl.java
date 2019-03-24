@@ -66,4 +66,10 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public void updateUserInfo(User user) {
+
+        userDao.updateByPrimaryKeySelective( user);
+    }
 }

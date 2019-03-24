@@ -9,9 +9,12 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="BIGINT" />
+      <result column="balance" property="balance" jdbcType="BIGINT" />
+      <result column="phone" property="phone" jdbcType="VARCHAR" />
+      <result column="dflag" property="dflag"  />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, email, pswd, create_time, last_login_time, status
+    id, name, email, pswd, create_time, last_login_time, status,balance,phone
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -43,14 +46,6 @@
         pswd = #{pswd,jdbcType=VARCHAR}
       </if>
   </delete>
-  <insert id="insert" parameterType="com.carrental.entity.User" >
-    insert into u_user (id, name, email, 
-      pswd, create_time, last_login_time, 
-      status)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{pswd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=BIGINT})
-  </insert>
   <insert id="insertSelective" parameterType="com.carrental.entity.User" >
     insert into u_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -75,6 +70,12 @@
       <if test="status != null" >
         status,
       </if>
+        <if test="balance != null" >
+            balance,
+        </if>
+        <if test="phone != null" >
+            phone,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -98,6 +99,12 @@
       <if test="status != null" >
         #{status,jdbcType=BIGINT},
       </if>
+        <if test="balance != null" >
+            #{balance,jdbcType=BIGINT},
+        </if>
+        <if test="phone != null" >
+            #{phone,jdbcType=VARCHAR},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.carrental.entity.User" >
@@ -121,6 +128,12 @@
       <if test="status != null" >
         status = #{status,jdbcType=BIGINT},
       </if>
+        <if test="balance != null" >
+            balance = #{balance,jdbcType=BIGINT},
+        </if>
+        <if test="phone != null" >
+            phone = #{phone,jdbcType=VARCHAR},
+        </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -131,7 +144,9 @@
       pswd = #{pswd,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=BIGINT}
+      status = #{status,jdbcType=BIGINT},
+        balance = #{balance,jdbcType=BIGINT},
+         phone = #{phone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
