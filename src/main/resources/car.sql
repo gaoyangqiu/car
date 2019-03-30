@@ -11,7 +11,7 @@
  Target Server Version : 50642
  File Encoding         : 65001
 
- Date: 22/03/2019 19:57:12
+ Date: 30/03/2019 19:01:01
 */
 
 SET NAMES utf8mb4;
@@ -23,6 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `bicycle`;
 CREATE TABLE `bicycle`  (
   `id` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `number` bigint(20) NOT NULL DEFAULT 0,
   `price` bigint(20) NOT NULL COMMENT '单车的租赁价格 元/小时',
   `type` tinyint(4) NOT NULL DEFAULT 0,
@@ -30,6 +31,22 @@ CREATE TABLE `bicycle`  (
   `deflag` tinyint(4) NOT NULL COMMENT '删除标志',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for order
+-- ----------------------------
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order`  (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `bicycle_id` bigint(20) NOT NULL COMMENT '单车id',
+  `start_time` datetime(0) NOT NULL COMMENT '单车开始租用的时间',
+  `end_time` datetime(0) NOT NULL COMMENT '单车租用结束的时间',
+  `total_price` bigint(10) NOT NULL DEFAULT 0 COMMENT '整个订单的总价格',
+  `status` int(4) NOT NULL COMMENT '状态',
+  `dflag` tinyint(2) UNSIGNED ZEROFILL NOT NULL DEFAULT 00 COMMENT '删除标识',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for u_permission
