@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : ali
  Source Server Type    : MySQL
- Source Server Version : 50642
- Source Host           : localhost:3306
+ Source Server Version : 50722
+ Source Host           : 39.108.236.16:3306
  Source Schema         : car
 
  Target Server Type    : MySQL
- Target Server Version : 50642
+ Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 30/03/2019 19:01:01
+ Date: 01/04/2019 01:32:05
 */
 
 SET NAMES utf8mb4;
@@ -30,23 +30,38 @@ CREATE TABLE `bicycle`  (
   `status` tinyint(4) NOT NULL,
   `deflag` tinyint(4) NOT NULL COMMENT '删除标志',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Table structure for order
+-- Records of bicycle
 -- ----------------------------
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order`  (
-  `id` bigint(20) NOT NULL,
+INSERT INTO `bicycle` VALUES (2, 'test1', 8, 8, 1, 1, 1);
+INSERT INTO `bicycle` VALUES (4, 'test5', 9, 9, 1, 1, 1);
+
+-- ----------------------------
+-- Table structure for t_order
+-- ----------------------------
+DROP TABLE IF EXISTS `t_order`;
+CREATE TABLE `t_order`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
   `bicycle_id` bigint(20) NOT NULL COMMENT '单车id',
-  `start_time` datetime(0) NOT NULL COMMENT '单车开始租用的时间',
-  `end_time` datetime(0) NOT NULL COMMENT '单车租用结束的时间',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '单车开始租用的时间',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '单车租用结束的时间',
   `total_price` bigint(10) NOT NULL DEFAULT 0 COMMENT '整个订单的总价格',
   `status` int(4) NOT NULL COMMENT '状态',
   `dflag` tinyint(2) UNSIGNED ZEROFILL NOT NULL DEFAULT 00 COMMENT '删除标识',
+  `time` int(7) NOT NULL COMMENT '单车租用的时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of t_order
+-- ----------------------------
+INSERT INTO `t_order` VALUES (1, 2, 1, NULL, NULL, 396, 0, 00, 99);
+INSERT INTO `t_order` VALUES (2, 2, 1, NULL, NULL, 396, 0, 00, 99);
+INSERT INTO `t_order` VALUES (3, 2, 1, NULL, NULL, 396, 0, 00, 99);
+INSERT INTO `t_order` VALUES (4, 2, 1, NULL, NULL, 220, 2, 00, 55);
 
 -- ----------------------------
 -- Table structure for u_permission
@@ -111,6 +126,11 @@ INSERT INTO `u_role_permission` VALUES (2, 2);
 INSERT INTO `u_role_permission` VALUES (2, 3);
 INSERT INTO `u_role_permission` VALUES (2, 4);
 INSERT INTO `u_role_permission` VALUES (2, 11);
+INSERT INTO `u_role_permission` VALUES (1, 5);
+INSERT INTO `u_role_permission` VALUES (1, 6);
+INSERT INTO `u_role_permission` VALUES (1, 7);
+INSERT INTO `u_role_permission` VALUES (1, 8);
+INSERT INTO `u_role_permission` VALUES (1, 9);
 
 -- ----------------------------
 -- Table structure for u_user
