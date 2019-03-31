@@ -63,7 +63,7 @@ $.ajax({
     dataType: "json",
     url: "/getUserInfo",
     success: function (result) {
-        if (result.code != "200") {
+        if (result.code != "0") {
             alert(result.errorMessage);
         } else {
             $("#userName").html('<img src="http://t.cn/RCzsdCq" class="layui-nav-img">'+result.data.name);

@@ -2,6 +2,8 @@ package com.carrental.dao;
 
 import com.carrental.entity.Order;
 
+import java.util.List;
+
 public interface OrderMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<Order> findOrderByUserId(int i);
 }

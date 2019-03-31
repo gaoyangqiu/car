@@ -9,7 +9,7 @@ package com.carrental.common;
  */
 public enum  ErrorMessage {
     /** 操作成功 */
-    SUCCESS(200, "SUCCESS_MSG"),
+    SUCCESS(0, "SUCCESS_MSG"),
 
     /** 操作失败 */
     FAIL(5000, "FAIL_MSG"),

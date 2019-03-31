@@ -2,6 +2,8 @@ package com.carrental.dao;
 
 import com.carrental.entity.Bicycle;
 
+import java.util.List;
+
 public interface BicycleMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface BicycleMapper {
     int updateByPrimaryKeySelective(Bicycle record);
 
     int updateByPrimaryKey(Bicycle record);
+
+    List<Bicycle> findAll();
+
+    Integer getCout();
 }

@@ -19,7 +19,17 @@
     from bicycle
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+
+    <select id="findAll" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from bicycle
+    </select>
+    <select id="getCout" resultType="java.lang.Integer">
+        SELECT COUNT(*) from bicycle
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from bicycle
     where id = #{id,jdbcType=INTEGER}
   </delete>

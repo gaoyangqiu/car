@@ -77,7 +77,7 @@
                         dataType: "json",
                         url: "/ajaxLogin",
                         success: function (result) {
-                            if (result.code != "200") {
+                            if (result.code != "0") {
                                 alert(result.errorMessage);
                             } else {
                                 location.href = "/index";

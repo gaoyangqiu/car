@@ -105,7 +105,7 @@
                         dataType: "json",
                         url: "/updateUserInfo",
                         success: function (result) {
-                            if (result.code != "200") {
+                            if (result.code != "0") {
                                 alert(result.errorMessage);
                             } else {
                                 layer.alert("修改成功", {
@@ -123,7 +123,7 @@
             dataType: "json",
             url: "/getUserInfo",
             success: function (result) {
-                if (result.code != "200") {
+                if (result.code != "0") {
                     alert(result.errorMessage);
                 } else {
                     //表单初始赋值
