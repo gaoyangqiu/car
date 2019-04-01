@@ -14,5 +14,5 @@ public interface OrderService {
 
     List<OrderVo> findOrderByUserId(int i);
 
-    void orderPay(Integer orderId);
+    void orderPay(Integer orderId,Long userId);
 }

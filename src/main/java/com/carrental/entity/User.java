@@ -18,9 +18,9 @@ public class User {
 
     private Date lastLoginTime;
 
-    private Long status;
+    private Integer status;
 
-    private Long balance;
+    private Integer balance;
 
     private String phone;
 

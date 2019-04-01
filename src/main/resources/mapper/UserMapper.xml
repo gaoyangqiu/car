@@ -39,14 +39,11 @@
     delete from u_user
     where
     1=1
-    <if test="name != null">
-      name =  #{name,jdbcType=VARCHAR}
+    <if test="id != null">
+      id =  #{id,jdbcType=VARCHAR}
     </if>
-      <if test="pswd != null">
-        pswd = #{pswd,jdbcType=VARCHAR}
-      </if>
   </delete>
-  <insert id="insertSelective" parameterType="com.carrental.entity.User" >
+  <insert id="insertSelective" parameterType="com.carrental.entity.User" useGeneratedKeys="true" keyProperty="id" >
     insert into u_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -10,7 +10,7 @@ public class Bicycle {
 
     private Long number;
 
-    private Long price;
+    private Integer price;
 
     private Integer type;
 

@@ -11,4 +11,7 @@ public interface UserRoleMapper {
     int insertSelective(UserRole record);
 
     List<UserRole> findUserRoleByUserId(@Param("userId") Long userId);
+
+    List<UserRole> findUserList();
+
 }

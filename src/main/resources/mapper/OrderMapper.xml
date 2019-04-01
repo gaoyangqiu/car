@@ -126,7 +126,7 @@
       </if>
 
         <if test="time != null" >
-            status = #{time,jdbcType=INTEGER},
+            time = #{time,jdbcType=INTEGER},
         </if>
     </set>
     where id = #{id,jdbcType=BIGINT}

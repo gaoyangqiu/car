@@ -48,7 +48,13 @@ public class OrderController {
     @RequestMapping("/orderPay")
     @ResponseBody
     public RestResult orderPay(@RequestBody PayVo vo){
-        orderService.orderPay(vo.getOrderId());
+        Subject subject= SecurityUtils.getSubject();
+        PrincipalCollection res=subject.getPrincipals();
+        List ress=res.asList();
+        Object o=ress.get(0);
+        User user=(User)o;
+        Long userId=user.getId();
+        orderService.orderPay(vo.getOrderId(),userId);
         return RestResult.success();
     }
 }

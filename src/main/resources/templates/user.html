@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单车租用</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.all.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加用户</button>
+    </div>
+</script>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/javascript">
+$(function () {
+
+
+
+    layui.use('table', function(){
+
+        var table = layui.table;
+
+        //方法级渲染
+        table.render({
+            elem: '#test'
+            ,url: '/userList'
+            ,toolbar: '#toolbarDemo'
+            ,cols: [
+                [
+                    {checkbox: true, fixed: true}
+                    ,{field:'id', title: 'ID', sort: true, fixed: true}
+                    ,{field:'name', title: '用户名',edit: 'text'}
+                    ,{field:'email', title: '用户邮箱',edit: 'text'}
+                    ,{field:'phone', title: '用户联系电话',edit: 'text'}
+                    ,{field:'pswd', title: '用户密码',edit: 'text'}
+                    ,{field:'statusName', title: '用户状态', sort: true}
+                    ,{field:'balance', title: '余额',edit: 'text', sort: true}
+                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                ]
+            ]
+            ,page: true
+            ,height:'full-60'
+        });
+
+        //监听单元格编辑
+        table.on('edit(test)', function(obj){
+            var data = obj.data; //得到所在行所有键值
+            $.ajax({
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data:JSON.stringify(data),
+                url: "/updateUser",
+                success: function (result) {
+                    if (result.code != "0") {
+                        layer.msg(result.errorMessage);
+                    } else {
+                        layer.msg('修改成功');
+                        //执行重载
+                        table.reload('test', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                    }
+                }
+            });
+        });
+        //监听工具条
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            console.info(data)
+            if(obj.event === 'del'){
+                layer.open({
+                    type: 1
+                    ,title: "确认删除用户" //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '300px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确认删除', '残忍拒绝']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content:''
+                    ,yes: function(){
+                        var id=data.id;
+                        $.ajax({
+                            type: "post",
+                            contentType: "application/json; charset=utf-8",
+                            url: "/deleteUser?userId="+id,
+                            success: function (result) {
+                                if (result.code != "0") {
+                                    layer.msg(result.errorMessage);
+                                } else {
+                                    layer.msg("删除成功");
+                                    layer.closeAll();
+                                    //执行重载
+                                    table.reload('test', {
+                                        page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        //头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            switch(obj.event){
+                case 'add':
+                    layer.open({
+                        type: 1
+                        ,title: "添加用户" //不显示标题栏
+                        ,closeBtn: false
+                        ,area: '600px;'
+                        ,shade: 0.8
+                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,btn: ['确认添加', '残忍拒绝']
+                        ,btnAlign: 'c'
+                        ,moveType: 1 //拖拽模式，0或者1
+                        ,content:'<div class="layui-form-item">\n' +
+                        '    <label class="layui-form-label">用户姓名</label>\n' +
+                        '    <div class="layui-input-block">\n' +
+                        '        <input type="text" id="userName" name="name" lay-verify="title" autocomplete="off" placeholder="请输入用户姓名" class="layui-input">\n' +
+                        '    </div>\n' +
+                        '</div>\n' +
+                        '<div class="layui-form-item">\n' +
+                        '    <label class="layui-form-label">用户邮箱</label>\n' +
+                        '    <div class="layui-input-block">\n' +
+                        '        <input type="text" id="userEmail" name="email" placeholder="请输入用户邮箱" autocomplete="off" class="layui-input">\n' +
+                        '    </div>\n' +
+                        '</div>\n' +
+                        '<div class="layui-form-item">\n' +
+                        '    <label class="layui-form-label">用户联系电话</label>\n' +
+                        '    <div class="layui-input-block">\n' +
+                        '        <input type="text" id="userPhone" name="phone" placeholder="请输入用户联系电话" autocomplete="off" class="layui-input">\n' +
+                        '    </div>\n' +
+                        '</div>\n' +
+                        '<div class="layui-form-item">\n' +
+                        '    <label class="layui-form-label">用户密码</label>\n' +
+                        '    <div class="layui-input-block">\n' +
+                        '        <input type="text" id="userPswd" name="pswd" placeholder="请输入用户密码" autocomplete="off" class="layui-input">\n' +
+                        '    </div>\n' +
+                        '</div>\n' +
+                        '<div class="layui-form-item">\n' +
+                        '    <label class="layui-form-label">余额</label>\n' +
+                        '    <div class="layui-input-block">\n' +
+                        '        <input type="text" id="userBalance" name="balance" placeholder="请输入余额" autocomplete="off" class="layui-input">\n' +
+                        '    </div>\n' +
+                        '</div>'
+                        ,yes: function(){
+                            var name=$('#userName').val();
+                            var email=$('#userEmail').val();
+                            var phone=$('#userPhone').val();
+                            var pswd=$('#userPswd').val();
+                            var balance=$('#userBalance').val();
+                            $.ajax({
+                                type: "post",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data:JSON.stringify({
+                                    "name":name,
+                                    "email":email,
+                                    "phone":phone,
+                                    "pswd":pswd,
+                                    "balance":balance
+                                }),
+                                url: "/addUser",
+                                success: function (result) {
+                                    if (result.code != "0") {
+                                        layer.msg(result.errorMessage);
+                                    } else {
+                                        layer.msg("添加用户成功");
+                                        layer.closeAll();
+                                        //执行重载
+                                        table.reload('test', {
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+            };
+        });
+        //监听表格复选框选择
+        table.on('checkbox(test)', function(obj){
+            console.log(obj)
+        });
+
+    });
+
+
+    var $ = layui.$, active = {
+        reload: function(){
+            var demoReload = $('#demoReload');
+
+            //执行重载
+            table.reload('testReload', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                ,where: {
+                    key: {
+                        id: demoReload.val()
+                    }
+                }
+            });
+        }
+    };
+
+    $('.demoTable .layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+})
+
+
+
+
+
+</script>
+
+</body>
+</html>

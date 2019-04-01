@@ -57,7 +57,7 @@ public class RentServiceImpl implements RentService {
         order.setDflag(0);
         order.setTime(rentVo.getTime());
         order.setUserId(rentVo.getUserId());
-        order.setTotalPrice(bicycle.getPrice()*rentVo.getTime());
+        order.setTotalPrice((bicycle.getPrice()*rentVo.getTime()));
         orderMapper.insertSelective(order);
         RestResult restResult=RestResult.success();
         return restResult;

@@ -5,6 +5,7 @@ import com.carrental.dao.OrderMapper;
 import com.carrental.dao.UserMapper;
 import com.carrental.entity.Bicycle;
 import com.carrental.entity.Order;
+import com.carrental.entity.User;
 import com.carrental.shopping.service.OrderService;
 import com.carrental.shopping.service.enumt.BicycleType;
 import com.carrental.shopping.service.enumt.OrderStatus;
@@ -53,10 +54,14 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void orderPay(Integer orderId) {
-        Order order=new Order();
+    public void orderPay(Integer orderId,Long userId) {
+        Order order=orderMapper.selectByPrimaryKey(orderId.longValue());
         order.setStatus(OrderStatus.YIZHIFU.getStatus());
         order.setId(orderId.longValue());
         orderMapper.updateByPrimaryKeySelective(order);
+        //支付成功之后扣钱
+        User user=userMapper.selectByPrimaryKey(order.getUserId().longValue());
+        user.setBalance((user.getBalance()-order.getTotalPrice()));
+        userMapper.updateByPrimaryKeySelective(user);
     }
 }

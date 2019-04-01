@@ -4,6 +4,7 @@ import com.carrental.entity.Permission;
 import com.carrental.entity.Role;
 import com.carrental.entity.User;
 import com.carrental.shopping.service.vo.UserInfoVo;
+import com.carrental.shopping.vo.UserVo;
 
 import java.util.List;
 import java.util.Map;
@@ -41,4 +42,15 @@ public interface UserService {
      */
     void updateUserInfo(User user);
 
+    /**
+     * 查询所有用户
+     * @return
+     */
+    List<UserVo> userList();
+
+    void updateUser(UserVo updateVo);
+
+    void deleteUser(Integer userId);
+
+    void addUser(UserVo updateVo);
 }

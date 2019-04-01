@@ -16,7 +16,7 @@ public class Order {
 
     private Date endTime;
 
-    private Long totalPrice;
+    private Integer totalPrice;
 
     private Integer status;
 
