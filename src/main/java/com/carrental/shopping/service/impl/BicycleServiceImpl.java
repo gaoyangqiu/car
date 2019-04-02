@@ -1,13 +1,14 @@
 package com.carrental.shopping.service.impl;
 
+import com.carrental.common.RestResult;
 import com.carrental.dao.BicycleMapper;
 import com.carrental.entity.Bicycle;
 import com.carrental.shopping.service.BicycleService;
 import com.carrental.shopping.service.enumt.BicycleType;
+import com.carrental.shopping.service.vo.BicycleTypeVo;
 import com.carrental.shopping.vo.BicycleEditVo;
 import com.carrental.shopping.vo.BicycleVo;
 import com.google.common.collect.Lists;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,17 @@ public class BicycleServiceImpl implements BicycleService {
         editVo.setStatus(1);
         editVo.setType(1);
         bicycleMapper.insertSelective(editVo);
+    }
+
+    @Override
+    public List<BicycleTypeVo> bicycleType() {
+        List<BicycleTypeVo> bicycleVos=Lists.newArrayList();
+        for (BicycleType bicycleType : BicycleType.values()) {
+            BicycleTypeVo vo=new BicycleTypeVo();
+            vo.setId(bicycleType.getType());
+            vo.setName(bicycleType.getDesc());
+            bicycleVos.add(vo);
+        }
+        return bicycleVos;
     }
 }

@@ -2,6 +2,7 @@ package com.carrental.shopping.controller;
 
 import com.carrental.common.RestResult;
 import com.carrental.shopping.service.BicycleService;
+import com.carrental.shopping.service.vo.BicycleTypeVo;
 import com.carrental.shopping.vo.BicycleDelVo;
 import com.carrental.shopping.vo.BicycleEditVo;
 import com.carrental.shopping.vo.BicycleVo;
@@ -31,7 +32,10 @@ public class BicycleController {
     public String bicycleManagement(){
         return "bicycle";
     }
-
+    @RequestMapping("bicycleEditIndex")
+    public String bicycleEditIndex(){
+        return "bicycleedit";
+    }
 
     @RequestMapping("bicycleList")
     @ResponseBody
@@ -58,6 +62,12 @@ public class BicycleController {
     public RestResult addBicycle(@RequestBody BicycleEditVo editVo){
         bicycleService.addBicycle(editVo);
         return RestResult.success();
+    }
+
+    @RequestMapping("bicycleType")
+    @ResponseBody
+    public List<BicycleTypeVo> bicycleType(){
+        return bicycleService.bicycleType();
     }
 
 }

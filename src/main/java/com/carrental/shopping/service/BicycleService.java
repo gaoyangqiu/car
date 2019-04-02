@@ -1,5 +1,7 @@
 package com.carrental.shopping.service;
 
+import com.carrental.common.RestResult;
+import com.carrental.shopping.service.vo.BicycleTypeVo;
 import com.carrental.shopping.vo.BicycleEditVo;
 import com.carrental.shopping.vo.BicycleVo;
 
@@ -20,4 +22,7 @@ public interface BicycleService {
     void editBicycle(BicycleEditVo editVo);
 
     void addBicycle(BicycleEditVo editVo);
+
+    List<BicycleTypeVo> bicycleType();
+
 }

@@ -118,61 +118,23 @@ $(function () {
             switch(obj.event){
                 case 'add':
                     layer.open({
-                        type: 1
+                        type: 2
                         ,title: "添加单车" //不显示标题栏
                         ,closeBtn: false
-                        ,area: '600px;'
+                        ,area: ['600px', '400px']
                         ,shade: 0.8
                         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
                         ,btn: ['确认添加', '残忍拒绝']
                         ,btnAlign: 'c'
                         ,moveType: 1 //拖拽模式，0或者1
-                        ,content:'<div class="layui-form-item">\n' +
-                        '    <label class="layui-form-label">名称</label>\n' +
-                        '    <div class="layui-input-block">\n' +
-                        '        <input id="bicycleName" type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入单车名称" class="layui-input">\n' +
-                        '    </div>\n' +
-                        '</div>\n' +
-                        '<div class="layui-form-item">\n' +
-                        '    <label class="layui-form-label">数量</label>\n' +
-                        '    <div class="layui-input-block">\n' +
-                        '        <input type="text" id="bicycleNumber" name="number" placeholder="请输入单车数量" autocomplete="off" class="layui-input">\n' +
-                        '    </div>\n' +
-                        '</div>\n' +
-                        '\n' +
-                        '<div class="layui-form-item">\n' +
-                        '    <label class="layui-form-label">价格</label>\n' +
-                        '    <div class="layui-input-block">\n' +
-                        '        <input type="text" id="bicyclePrice" name="price" placeholder="请输入单车价格" autocomplete="off" class="layui-input">\n' +
-                        '    </div>\n' +
-                        '</div>'
+                        ,content:'/bicycleEditIndex'
                         ,yes: function(){
-                            var name=$('#bicycleName').val();
-                            var number=$('#bicycleNumber').val();
-                            var price=$('#bicyclePrice').val();
-                            $.ajax({
-                                type: "post",
-                                contentType: "application/json; charset=utf-8",
-                                dataType: "json",
-                                data:JSON.stringify({
-                                    "name":name,
-                                    "number":number,
-                                    "price":price
-                                }),
-                                url: "/addBicycle",
-                                success: function (result) {
-                                    if (result.code != "0") {
-                                        layer.msg(result.errorMessage);
-                                    } else {
-                                        layer.msg("添加单车成功");
-                                        layer.closeAll();
-                                        //执行重载
-                                        table.reload('test', {
-                                            page: {
-                                                curr: 1 //重新从第 1 页开始
-                                            }
-                                        });
-                                    }
+                            layer.msg("添加单车成功");
+                            layer.closeAll();
+                            //执行重载
+                            table.reload('test', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
                                 }
                             });
                         }

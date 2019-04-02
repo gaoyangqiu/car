@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑单车</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.all.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+<form class="layui-form" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input id="bicycleName" type="text" name="name" lay-verify="title" autocomplete="off"
+                       placeholder="请输入单车名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数量</label>
+            <div class="layui-input-block">
+                <input type="text" id="bicycleNumber" name="number" placeholder="请输入单车数量" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-block">
+                <input type="text" id="bicyclePrice" name="price" placeholder="请输入单车价格" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">单车类型</label>
+            <div class="layui-input-block">
+                <select name="type" id="bicycleType" lay-filter="type">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
+        </div>
+</form>
+</body>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            async:false,
+            type: "get",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "/bicycleType",
+            success: function (result) {
+                if (result.code != "0") {
+                    layer.msg(result.errorMessage);
+                } else {
+                    for (var i in result.data) {
+                        var id = result.data[i].id;
+                        var name = result.data[i].name;
+                        $("#bicycleType").append("<option value=" + id + ">" + name + "</option>");
+                    }
+                }
+            }
+        });
+    });
+
+        layui.use(['form', 'layedit', 'laydate'], function () {
+
+            var form = layui.form
+                , layer = layui.layer
+            //监听提交
+            form.on('submit(demo2)', function (data) {
+                $.ajax({
+                    type: "post",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(data.field),
+                    url: "/addBicycle",
+                    success: function (result) {
+                        if (result.code != "0") {
+                            layer.msg(result.errorMessage);
+                        } else {
+                            layer.msg("添加单车成功");
+                            var index=parent.layer.getFrameIndex(window.name); //获取当前窗口的name
+                            parent.layer.close(index);		//关闭窗口
+                            layer.closeAll();
+                            //执行重载
+                            table.reload('test', {
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+
+    })
+</script>
+
+</html>
